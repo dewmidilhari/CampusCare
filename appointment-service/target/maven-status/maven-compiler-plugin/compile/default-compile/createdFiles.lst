@@ -1,0 +1,9 @@
+com\campuscare\appointmentservice\model\Appointment.class
+com\campuscare\appointmentservice\model\Notification.class
+com\campuscare\appointmentservice\repository\NotificationRepository.class
+com\campuscare\appointmentservice\service\AppointmentService.class
+com\campuscare\appointmentservice\controller\AppointmentController.class
+com\campuscare\appointmentservice\service\NotificationService.class
+com\campuscare\appointmentservice\AppointmentServiceApplication.class
+com\campuscare\appointmentservice\controller\NotificationController.class
+com\campuscare\appointmentservice\repository\AppointmentRepository.class
