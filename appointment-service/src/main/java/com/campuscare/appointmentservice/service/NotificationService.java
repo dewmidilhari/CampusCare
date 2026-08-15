@@ -13,15 +13,18 @@ public class NotificationService {
 
     public NotificationService(
             NotificationRepository notificationRepository) {
+
         this.notificationRepository = notificationRepository;
     }
 
-    public Notification createNotification(Notification notification) {
+    public Notification createNotification(
+            Notification notification) {
 
         return notificationRepository.save(notification);
     }
 
-    public List<Notification> getNotificationsByUser(String userId) {
+    public List<Notification> getNotificationsByUser(
+            String userId) {
 
         return notificationRepository.findByUserId(userId);
     }
@@ -34,7 +37,9 @@ public class NotificationService {
     public Notification markAsRead(String id) {
 
         Notification notification =
-                notificationRepository.findById(id).orElse(null);
+                notificationRepository
+                        .findById(id)
+                        .orElse(null);
 
         if (notification != null) {
 

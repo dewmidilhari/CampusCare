@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CampusCare - User Service</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <h1>CampusCare</h1>
+
+    <p>User Service</p>
+
+</header>
+
+
+
+<main class="login-container">
+
+
+    <div class="login-card">
+
+
+        <h2>👤 My Profile</h2>
+
+
+        <p class="login-text">
+
+            Manage your CampusCare account
+
+        </p>
+
+
+
+        <!-- USER DETAILS -->
+
+        <div id="userDetails">
+
+            Loading user details...
+
+        </div>
+
+
+
+        <br>
+
+
+
+        <!-- BUTTONS -->
+
+        <button onclick="editProfile()">
+
+            Edit Profile
+
+        </button>
+
+
+        <button onclick="deleteAccount()">
+
+            Delete Account
+
+        </button>
+
+
+
+        <br>
+        <br>
+
+
+
+        <!-- EDIT PROFILE FORM -->
+
+        <div id="editProfileForm"
+             style="display: none; margin-top: 20px;">
+
+            <h3>Edit Profile</h3>
+
+
+            <label for="editName">
+
+                Name
+
+            </label>
+
+            <input
+                type="text"
+                id="editName"
+                placeholder="Enter your name"
+            >
+
+
+            <br>
+            <br>
+
+
+            <label for="editEmail">
+
+                Email
+
+            </label>
+
+            <input
+                type="email"
+                id="editEmail"
+                placeholder="Enter your email"
+            >
+
+
+            <br>
+            <br>
+
+
+            <label for="editPassword">
+
+                Password
+
+            </label>
+
+            <input
+                type="password"
+                id="editPassword"
+                placeholder="Enter your password"
+            >
+
+
+            <br>
+            <br>
+
+
+            <label for="editRole">
+
+                Role
+
+            </label>
+
+            <select id="editRole">
+
+                <option value="STUDENT">
+                    STUDENT
+                </option>
+
+                <option value="STAFF">
+                    STAFF
+                </option>
+
+                <option value="ADMIN">
+                    ADMIN
+                </option>
+
+            </select>
+
+
+            <br>
+            <br>
+
+
+            <button onclick="saveProfile()">
+
+                Save Profile
+
+            </button>
+
+
+            <button onclick="cancelEdit()">
+
+                Cancel
+
+            </button>
+
+        </div>
+
+
+
+        <br>
+
+
+        <!-- BACK BUTTON -->
+
+        <button onclick="goToDashboard()">
+
+            ← Back to Dashboard
+
+        </button>
+
+
+    </div>
+
+
+</main>
+
+
+
+<footer>
+
+    <p>© 2026 CampusCare</p>
+
+</footer>
+
+
+
+<script src="app.js"></script>
+
+
+</body>
+
+</html>

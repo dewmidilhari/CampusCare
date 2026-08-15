@@ -1,0 +1,6 @@
+com\campuscare\requestservice\repository\RequestRepository.class
+com\campuscare\requestservice\service\RequestService.class
+com\campuscare\requestservice\RequestServiceApplication.class
+com\campuscare\requestservice\security\ApiKeyFilter.class
+com\campuscare\requestservice\controller\RequestController.class
+com\campuscare\requestservice\model\Request.class

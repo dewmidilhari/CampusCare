@@ -1,4 +1,4 @@
-package com.campuscare.requestservice.security;
+package com.campuscare.filter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -13,10 +13,8 @@ import java.io.IOException;
 @Component
 public class ApiKeyFilter extends OncePerRequestFilter {
 
-    private static final String API_KEY_HEADER = "X-API-KEY";
-
     @Value("${api.key}")
-    private String validApiKey;
+    private String apiKey;
 
     @Override
     protected void doFilterInternal(
@@ -25,24 +23,18 @@ public class ApiKeyFilter extends OncePerRequestFilter {
             FilterChain filterChain)
             throws ServletException, IOException {
 
-        // Browser preflight request
+        // Allow CORS preflight request
         if ("OPTIONS".equalsIgnoreCase(request.getMethod())) {
             filterChain.doFilter(request, response);
             return;
         }
 
-        String apiKey =
-                request.getHeader(API_KEY_HEADER);
+        String requestApiKey = request.getHeader("X-API-KEY");
 
-        if (apiKey == null || !apiKey.equals(validApiKey)) {
+        if (requestApiKey == null || !requestApiKey.equals(apiKey)) {
 
-            response.setStatus(
-                    HttpServletResponse.SC_UNAUTHORIZED
-            );
-
-            response.setContentType(
-                    "application/json"
-            );
+            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+            response.setContentType("application/json");
 
             response.getWriter().write(
                     "{\"error\":\"Invalid or missing API Key\"}"
@@ -51,9 +43,6 @@ public class ApiKeyFilter extends OncePerRequestFilter {
             return;
         }
 
-        filterChain.doFilter(
-                request,
-                response
-        );
+        filterChain.doFilter(request, response);
     }
 }

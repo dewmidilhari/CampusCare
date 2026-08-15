@@ -4,18 +4,23 @@ import com.campuscare.appointmentservice.model.Appointment;
 import com.campuscare.appointmentservice.service.AppointmentService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 
+
 @RestController
+@CrossOrigin(
+        origins = {
+                "http://127.0.0.1:5501",
+                "http://localhost:5501"
+        }
+)
 @RequestMapping("/api/appointments")
 public class AppointmentController {
 
     private final AppointmentService appointmentService;
 
-    public AppointmentController(
-            AppointmentService appointmentService) {
-
+    public AppointmentController(AppointmentService appointmentService) {
         this.appointmentService = appointmentService;
     }
 
@@ -29,8 +34,7 @@ public class AppointmentController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Appointment>>
-    getAllAppointments() {
+    public ResponseEntity<List<Appointment>> getAllAppointments() {
 
         return ResponseEntity.ok(
                 appointmentService.getAllAppointments()
@@ -52,35 +56,29 @@ public class AppointmentController {
     }
 
     @GetMapping("/user/{userId}")
-    public ResponseEntity<List<Appointment>>
-    getAppointmentsByUser(
+    public ResponseEntity<List<Appointment>> getAppointmentsByUser(
             @PathVariable String userId) {
 
         return ResponseEntity.ok(
-                appointmentService
-                        .getAppointmentsByUser(userId)
+                appointmentService.getAppointmentsByUser(userId)
         );
     }
 
     @GetMapping("/status/{status}")
-    public ResponseEntity<List<Appointment>>
-    getAppointmentsByStatus(
+    public ResponseEntity<List<Appointment>> getAppointmentsByStatus(
             @PathVariable String status) {
 
         return ResponseEntity.ok(
-                appointmentService
-                        .getAppointmentsByStatus(status)
+                appointmentService.getAppointmentsByStatus(status)
         );
     }
 
     @GetMapping("/service/{serviceType}")
-    public ResponseEntity<List<Appointment>>
-    getAppointmentsByServiceType(
+    public ResponseEntity<List<Appointment>> getAppointmentsByServiceType(
             @PathVariable String serviceType) {
 
         return ResponseEntity.ok(
-                appointmentService
-                        .getAppointmentsByServiceType(serviceType)
+                appointmentService.getAppointmentsByServiceType(serviceType)
         );
     }
 
@@ -90,8 +88,7 @@ public class AppointmentController {
             @RequestParam String status) {
 
         Appointment appointment =
-                appointmentService
-                        .updateAppointmentStatus(id, status);
+                appointmentService.updateAppointmentStatus(id, status);
 
         if (appointment == null) {
             return ResponseEntity.notFound().build();

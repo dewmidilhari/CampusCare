@@ -9,6 +9,21 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/requests")
+@CrossOrigin(
+        origins = {
+                "http://127.0.0.1:5501",
+                "http://localhost:5501"
+        },
+        allowedHeaders = "*",
+        methods = {
+                RequestMethod.GET,
+                RequestMethod.POST,
+                RequestMethod.PUT,
+                RequestMethod.PATCH,
+                RequestMethod.DELETE,
+                RequestMethod.OPTIONS
+        }
+)
 public class RequestController {
 
     private final RequestService requestService;
@@ -17,22 +32,41 @@ public class RequestController {
         this.requestService = requestService;
     }
 
-    // Create a new request
+    // =====================================================
+    // CREATE REQUEST
+    // =====================================================
+
     @PostMapping
-    public ResponseEntity<Request> createRequest(@RequestBody Request request) {
-        return ResponseEntity.ok(requestService.createRequest(request));
+    public ResponseEntity<Request> createRequest(
+            @RequestBody Request request) {
+
+        return ResponseEntity.ok(
+                requestService.createRequest(request)
+        );
     }
 
-    // Get all requests
+    // =====================================================
+    // GET ALL REQUESTS
+    // =====================================================
+
     @GetMapping
     public ResponseEntity<List<Request>> getAllRequests() {
-        return ResponseEntity.ok(requestService.getAllRequests());
+
+        return ResponseEntity.ok(
+                requestService.getAllRequests()
+        );
     }
 
-    // Get request by ID
+    // =====================================================
+    // GET REQUEST BY ID
+    // =====================================================
+
     @GetMapping("/{id}")
-    public ResponseEntity<Request> getRequestById(@PathVariable String id) {
-        Request request = requestService.getRequestById(id);
+    public ResponseEntity<Request> getRequestById(
+            @PathVariable String id) {
+
+        Request request =
+                requestService.getRequestById(id);
 
         if (request == null) {
             return ResponseEntity.notFound().build();
@@ -41,37 +75,56 @@ public class RequestController {
         return ResponseEntity.ok(request);
     }
 
-    // Get requests by user
+    // =====================================================
+    // GET REQUESTS BY USER
+    // =====================================================
+
     @GetMapping("/user/{userId}")
     public ResponseEntity<List<Request>> getRequestsByUser(
             @PathVariable String userId) {
 
-        return ResponseEntity.ok(requestService.getRequestsByUser(userId));
+        return ResponseEntity.ok(
+                requestService.getRequestsByUser(userId)
+        );
     }
 
-    // Get requests by type
+    // =====================================================
+    // GET REQUESTS BY TYPE
+    // =====================================================
+
     @GetMapping("/type/{type}")
     public ResponseEntity<List<Request>> getRequestsByType(
             @PathVariable String type) {
 
-        return ResponseEntity.ok(requestService.getRequestsByType(type));
+        return ResponseEntity.ok(
+                requestService.getRequestsByType(type)
+        );
     }
 
-    // Get requests by status
+    // =====================================================
+    // GET REQUESTS BY STATUS
+    // =====================================================
+
     @GetMapping("/status/{status}")
     public ResponseEntity<List<Request>> getRequestsByStatus(
             @PathVariable String status) {
 
-        return ResponseEntity.ok(requestService.getRequestsByStatus(status));
+        return ResponseEntity.ok(
+                requestService.getRequestsByStatus(status)
+        );
     }
 
-    // Update request status
+    // =====================================================
+    // UPDATE REQUEST STATUS
+    // =====================================================
+
     @PatchMapping("/{id}/status")
     public ResponseEntity<Request> updateStatus(
             @PathVariable String id,
             @RequestParam String status) {
 
-        Request request = requestService.updateRequestStatus(id, status);
+        Request request =
+                requestService.updateRequestStatus(id, status);
 
         if (request == null) {
             return ResponseEntity.notFound().build();
@@ -80,10 +133,16 @@ public class RequestController {
         return ResponseEntity.ok(request);
     }
 
-    // Delete request
+    // =====================================================
+    // DELETE REQUEST
+    // =====================================================
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteRequest(@PathVariable String id) {
+    public ResponseEntity<Void> deleteRequest(
+            @PathVariable String id) {
+
         requestService.deleteRequest(id);
+
         return ResponseEntity.noContent().build();
     }
 }

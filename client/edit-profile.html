@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>CampusCare - Edit Profile</title>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+
+<header class="header">
+
+    <h1>CampusCare</h1>
+
+    <p>Edit Profile</p>
+
+</header>
+
+
+
+<main class="login-container">
+
+    <div class="login-card edit-profile-card">
+
+
+        <h2>✏️ Edit Profile</h2>
+
+        <p class="login-text">
+            Update your CampusCare account details
+        </p>
+
+
+
+        <!-- NAME -->
+
+        <label for="editName">
+            Name
+        </label>
+
+        <input
+            type="text"
+            id="editName"
+            placeholder="Enter your name"
+        >
+
+
+
+        <!-- EMAIL -->
+
+        <label for="editEmail">
+            Email
+        </label>
+
+        <input
+            type="email"
+            id="editEmail"
+            placeholder="Enter your email"
+        >
+
+
+
+        <!-- PASSWORD -->
+
+        <label for="editPassword">
+            Password
+        </label>
+
+        <input
+            type="password"
+            id="editPassword"
+            placeholder="Enter your password"
+        >
+
+
+
+        <!-- ROLE -->
+
+        <label for="editRole">
+            Role
+        </label>
+
+        <select id="editRole">
+
+            <option value="STUDENT">
+                Student
+            </option>
+
+            <option value="STAFF">
+                Staff
+            </option>
+
+            <option value="ADMIN">
+                Admin
+            </option>
+
+        </select>
+
+
+
+        <!-- MESSAGE -->
+
+        <p id="editMessage"></p>
+
+
+
+        <!-- SAVE -->
+
+        <button
+            type="button"
+            onclick="saveProfile()">
+
+            Save Changes
+
+        </button>
+
+
+
+        <!-- CANCEL -->
+
+        <button
+            type="button"
+            class="cancel-button"
+            onclick="goToUserProfile()">
+
+            Cancel
+
+        </button>
+
+
+    </div>
+
+</main>
+
+
+
+<footer>
+
+    <p>© 2026 CampusCare</p>
+
+</footer>
+
+
+
+<script src="app.js"></script>
+
+<script>
+
+    // =====================================================
+    // LOAD CURRENT USER DATA
+    // =====================================================
+
+    function loadEditProfile() {
+
+        const userData =
+            localStorage.getItem("campuscareUser");
+
+
+        if (!userData) {
+
+            alert("Please login first.");
+
+            window.location.href =
+                "index.html";
+
+            return;
+
+        }
+
+
+        try {
+
+            const user =
+                JSON.parse(userData);
+
+
+            document.getElementById("editName").value =
+                user.name || "";
+
+
+            document.getElementById("editEmail").value =
+                user.email || "";
+
+
+            document.getElementById("editPassword").value =
+                user.password || "";
+
+
+            document.getElementById("editRole").value =
+                user.role || "STUDENT";
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            alert("Unable to load profile.");
+
+        }
+
+    }
+
+
+
+    // =====================================================
+    // SAVE PROFILE
+    // =====================================================
+
+    async function saveProfile() {
+
+        const message =
+            document.getElementById("editMessage");
+
+
+        const name =
+            document.getElementById("editName")
+                .value.trim();
+
+
+        const email =
+            document.getElementById("editEmail")
+                .value.trim();
+
+
+        const password =
+            document.getElementById("editPassword")
+                .value.trim();
+
+
+        const role =
+            document.getElementById("editRole")
+                .value;
+
+
+        if (name === "") {
+
+            message.innerText =
+                "Please enter your name.";
+
+            return;
+
+        }
+
+
+        if (email === "") {
+
+            message.innerText =
+                "Please enter your email.";
+
+            return;
+
+        }
+
+
+        if (password === "") {
+
+            message.innerText =
+                "Please enter your password.";
+
+            return;
+
+        }
+
+
+        const userData =
+            localStorage.getItem("campuscareUser");
+
+
+        if (!userData) {
+
+            message.innerText =
+                "Please login first.";
+
+            return;
+
+        }
+
+
+        let user;
+
+        try {
+
+            user =
+                JSON.parse(userData);
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.innerText =
+                "Invalid user information.";
+
+            return;
+
+        }
+
+
+        try {
+
+            const response =
+                await fetch(
+                    `${USER_API_URL}/${user.id}`,
+                    {
+                        method: "PUT",
+
+                        headers: {
+                            "Content-Type": "application/json",
+                            "X-API-KEY": USER_API_KEY
+                        },
+
+                        body: JSON.stringify({
+
+                            name: name,
+
+                            email: email,
+
+                            password: password,
+
+                            role: role
+
+                        })
+                    }
+                );
+
+
+            if (response.ok) {
+
+                const updatedUser =
+                    await response.json();
+
+
+                localStorage.setItem(
+                    "campuscareUser",
+                    JSON.stringify(updatedUser)
+                );
+
+
+                message.innerText =
+                    "Profile updated successfully!";
+
+
+                message.style.color =
+                    "#198754";
+
+
+                setTimeout(function () {
+
+                    window.location.href =
+                        "user-service.html";
+
+                }, 1000);
+
+
+            } else if (response.status === 401) {
+
+                message.innerText =
+                    "Invalid or missing User Service API Key.";
+
+                message.style.color =
+                    "#dc3545";
+
+
+            } else {
+
+                message.innerText =
+                    "Failed to update profile.";
+
+                message.style.color =
+                    "#dc3545";
+
+            }
+
+
+        } catch (error) {
+
+            console.error(error);
+
+            message.innerText =
+                "Cannot connect to User Service.";
+
+            message.style.color =
+                "#dc3545";
+
+        }
+
+    }
+
+
+
+    // =====================================================
+    // CANCEL
+    // =====================================================
+
+    function goToUserProfile() {
+
+        window.location.href =
+            "user-service.html";
+
+    }
+
+
+
+    // =====================================================
+    // PAGE LOAD
+    // =====================================================
+
+    loadEditProfile();
+
+</script>
+
+
+</body>
+
+</html>

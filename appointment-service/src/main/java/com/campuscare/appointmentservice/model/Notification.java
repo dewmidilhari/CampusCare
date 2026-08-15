@@ -18,8 +18,12 @@ public class Notification {
     public Notification() {
     }
 
-    public Notification(String userId, String appointmentId,
-                         String message, String type) {
+    public Notification(
+            String userId,
+            String appointmentId,
+            String message,
+            String type) {
+
         this.userId = userId;
         this.appointmentId = appointmentId;
         this.message = message;
