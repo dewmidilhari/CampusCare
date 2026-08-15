@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>CampusCare - Dashboard</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <header class="header">
+        <h1>CampusCare</h1>
+        <p>University Student Service Platform</p>
+    </header>
+
+
+    <main class="container">
+
+        <h2>Student Dashboard</h2>
+
+        <p class="welcome">
+            Welcome to CampusCare. Select a service below.
+        </p>
+
+
+        <div class="services">
+
+            <!-- User Service -->
+            <div class="service-card">
+
+                <div class="icon">👤</div>
+
+                <h3>User Service</h3>
+
+                <p>
+                    Manage your account and student profile.
+                </p>
+
+                <button onclick="openUserService()">
+                    Open
+                </button>
+
+            </div>
+
+
+            <!-- Request Service -->
+            <div class="service-card">
+
+                <div class="icon">📋</div>
+
+                <h3>Request Service</h3>
+
+                <p>
+                    Create and manage your service requests.
+                </p>
+
+                <button onclick="openRequestService()">
+                    Open
+                </button>
+
+            </div>
+
+
+            <!-- Appointment Service -->
+            <div class="service-card">
+
+                <div class="icon">📅</div>
+
+                <h3>Appointment Service</h3>
+
+                <p>
+                    Book and manage your appointments.
+                </p>
+
+                <button onclick="openAppointmentService()">
+                    Open
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <div class="logout-area">
+
+            <button
+                class="logout-button"
+                onclick="logout()">
+                Logout
+            </button>
+
+        </div>
+
+    </main>
+
+
+    <footer>
+        <p>© 2026 CampusCare</p>
+    </footer>
+
+
+    <script src="app.js"></script>
+
+</body>
+
+</html>
