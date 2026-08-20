@@ -565,8 +565,14 @@ Where Swagger / OpenAPI is configured, the API documentation can be accessed thr
 
 Typical Spring Boot Swagger UI path:
 
-```text
-/swagger-ui/index.html
+```User Service API
+http://localhost:8081/swagger-ui/index.html
+```
+```Request Service API
+http://localhost:8082/swagger-ui/index.html#/request-controller
+```
+```Appointment Service API
+http://localhost:8080/swagger-ui/index.html#/
 ```
 
 The exact URL depends on the service port and configuration.
